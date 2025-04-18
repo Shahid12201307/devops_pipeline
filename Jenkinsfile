@@ -18,7 +18,7 @@ pipeline {
             steps {
                 script {
                     echo "🔨 Building Docker image..."
-                    bat "docker build -t ${IMAGE_NAME} ."
+                    sh "docker build -t ${IMAGE_NAME} ."
                 }
             }
         }
@@ -27,7 +27,7 @@ pipeline {
             steps {
                 script {
                     echo "🛑 Stopping existing container if running..."
-                    bat """
+                    sh """
                         docker stop ${CONTAINER_NAME} || true
                         docker rm ${CONTAINER_NAME} || true
                     """
@@ -39,7 +39,7 @@ pipeline {
             steps {
                 script {
                     echo "🚀 Running container..."
-                    bat "docker run -d --name ${CONTAINER_NAME} -p ${PORT}:${PORT} ${IMAGE_NAME}"
+                    sh "docker run -d --name ${CONTAINER_NAME} -p ${PORT}:${PORT} ${IMAGE_NAME}"
                 }
             }
         }
